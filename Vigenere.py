@@ -8,7 +8,10 @@ def encodeVigenere(text, key): #Both inputs should be in string form
 			#Letter
 			letter = -1*textList[i]
 			shift = -1*keyList[j%len(keyList)]
-			textList[i] = -1*((letter+shift-1)%26)
+			textList[i] = letter+shift-1
+			if(textList[i]>26):
+				textList[i]-=26
+			textList[i]*=-1
 			j+=1
 		i+=1
 	return textList
@@ -24,7 +27,7 @@ def decodeVigenere(text, key): #Again, both inputs in string form
 			letter = -1*textList[i]
 			shift = -1*keyList[j%len(keyList)]
 			textList[i] = (letter-shift+1)
-			if(textList[i]<0):
+			if(textList[i]<=0):
 				textList[i]+=26
 			textList[i]*=-1
 			j+=1
