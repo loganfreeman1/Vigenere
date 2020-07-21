@@ -1,33 +1,57 @@
-def encodeVigenere(text, key): #Both inputs should be in string form
+def encodeVigenere(text, key, keyPlace=0): #Both inputs should be in string form
 	textList = stringToNumList(text)
 	keyList = stringToNumList(key)
 	i=0
 	while i<len(textList):
 		letter = textList[i]
-		shift = keyList[i%len(keyList)]
+		shift = keyList[keyPlace%len(keyList)]
 		textList[i] = letter+shift-1
 		if(textList[i]>26):
 			textList[i]-=26
 		i+=1
-	return numListToString(textList)
+		keyPlace+=1
+	return numListToString(textList),keyPlace
 
-def decodeVigenere(text, key): #Again, both inputs in string form
+def decodeVigenere(text, key, keyPlace=0): #Again, both inputs in string form
 	textList = stringToNumList(text)
 	keyList = stringToNumList(key)
 	i=0
 	while i<len(textList):
 		letter = textList[i]
-		shift = keyList[i%len(keyList)]
+		shift = keyList[keyPlace%len(keyList)]
 		textList[i] = letter-shift+1
 		if(textList[i]<=0):
 			textList[i]+=26
 		i+=1
-	return numListToString(textList)
+		keyPlace+=1
+	return numListToString(textList), keyPlace
+
+def encodeVigenereFromFile(fileName, key):
+	file = open(fileName, 'r')
+	writeFile = open("Encoded_"+fileName, 'w+')
+	contents = file.read().splitlines()
+	keyPlace = 0
+	for string in contents:
+		encodedString, keyPlace = encodeVigenere(string, key, keyPlace)
+		writeFile.write(encodedString+'\n')
+	file.close()
+	writeFile.close()
+
+def decodeVigenereFromFile(fileName, key):
+	file = open(fileName, 'r')
+	writeFile = open("Decoded_"+fileName, 'w+')
+	contents = file.read().splitlines()
+	keyPlace=0
+	for string in contents:
+		decodedString, keyPlace = decodeVigenere(string, key, keyPlace)
+		writeFile.write(decodedString + '\n')
+	file.close()
+	writeFile.close()
 
 def testEncodeDecode(text, key):
-	encodedString = encodeVigenere(text, key)
+	encodedString = encodeVigenere(text, key)[0]
 	print("Encoded Vigenere Cipher: " + encodedString)
-	decodedString = decodeVigenere(encodedString, key)
+	decodedString = decodeVigenere(encodedString, key)[0]
 	print("Decoded Vigenere Cipher: " + decodedString)
 
 def charToInt(character):
