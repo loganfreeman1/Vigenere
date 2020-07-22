@@ -31,7 +31,6 @@ def kasiski(string,minSize=3, maxSize=6):
 			else:
 				break
 		for i in range(len(instances)-1):
-			print(subString)
 			spaceList.append(instances[i+1]-instances[i])
 	#Now, spaceList contains every space between instances of repeated substrings. Now, have to make frequency list of key lengths
 	for num in spaceList:
@@ -42,3 +41,9 @@ def kasiski(string,minSize=3, maxSize=6):
 				else:
 					frequencies[i]=1
 	print(frequencies)
+
+def crack():
+	#Analyse kasiski for deviation from normal (random) to score probable key-length using R^2
+	#Frequency-analyse most deviant kasiski shifts for normality R^2
+	#TODO FUTURE: CHECK FOR INTELLIGIBLE ENGLISH to score
+	print(8)
