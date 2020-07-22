@@ -31,11 +31,14 @@ def encodeVigenereFromFile(fileName, key):
 	writeFile = open("Encoded_"+fileName, 'w+')
 	contents = file.read().splitlines()
 	keyPlace = 0
+	allString = ''
 	for string in contents:
 		encodedString, keyPlace = encodeVigenere(string, key, keyPlace)
 		writeFile.write(encodedString+'\n')
+		allString+=encodedString
 	file.close()
 	writeFile.close()
+	return allString
 
 def decodeVigenereFromFile(fileName, key):
 	file = open(fileName, 'r')
