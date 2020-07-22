@@ -1,3 +1,4 @@
+import csv
 import Vigenere
 #First, Kasiski for key-length identification
 #Then, Caesar decryption for possible key lengths
@@ -41,7 +42,13 @@ def kasiski(string,minSize=3, maxSize=6):
 				else:
 					frequencies[i]=1
 	print(frequencies)
+	csvDict(frequencies)
 
+def csvDict(mydict):
+	with open('dict.csv', 'w') as csv_file:
+		writer = csv.writer(csv_file)
+		for key, value in mydict.items():
+			writer.writerow([key, value])
 def crack():
 	#Analyse kasiski for deviation from normal (random) to score probable key-length using R^2
 	#Frequency-analyse most deviant kasiski shifts for normality R^2
