@@ -1,15 +1,15 @@
 #Solves Caesar cipher
 def crackCaesar(charList): #Takes charList, all lower-case characters
 	shiftSuccess={}
-	message = charList
 	for i in range(26):
-		message = charList
+		message = []
 		letterFrequencies = {}
 		netDeviation = 0
-		for c in message: #Does shift
-			c+=i
-			if c>97:
-				c-=26
+		for c in charList: #Does shift
+			num = c+i
+			if num>122:
+				num-=26
+			message.append(num)
 		for c in message:
 			if c in letterFrequencies:
 				letterFrequencies[c]+=1
@@ -25,7 +25,15 @@ def crackCaesar(charList): #Takes charList, all lower-case characters
 
 		shiftSuccess[i] = netDeviation
 
-	return shiftSuccess
+	shiftSuccess = sorted(shiftSuccess, key=shiftSuccess.get, reverse=False)
+	crackedMessage = []
+	for c in charList:
+		char = c-shiftSuccess[0]
+		if char<97:
+			char+=26
+		crackedMessage.append(char)
+	return crackedMessage
+
 
 alphabetFrequency = {
 	97:0.08167,
@@ -37,7 +45,7 @@ alphabetFrequency = {
 	103:0.02015,
 	104:0.06094,
 	105:0.06966,
-	100:0.00153,
+	106:0.00153,
 	107:0.00772,
 	108:0.04025,
 	109:0.02406,
