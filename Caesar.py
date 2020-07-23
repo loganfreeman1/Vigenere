@@ -1,4 +1,32 @@
 #Solves Caesar cipher
+def crackCaesar(charList): #Takes charList, all lower-case characters
+	shiftSuccess={}
+	message = charList
+	for i in range(26):
+		message = charList
+		letterFrequencies = {}
+		netDeviation = 0
+		for c in message: #Does shift
+			c+=i
+			if c>97:
+				c-=26
+		for c in message:
+			if c in letterFrequencies:
+				letterFrequencies[c]+=1
+			else:
+				letterFrequencies[c]=1
+
+		for l in letterFrequencies:
+			letterFrequencies[l]=letterFrequencies[l]/len(message)
+
+		for l in letterFrequencies:
+			deviation = abs(letterFrequencies[l]-alphabetFrequency[l])
+			netDeviation += deviation
+
+		shiftSuccess[i] = netDeviation
+
+	return shiftSuccess
+
 alphabetFrequency = {
 	97:0.08167,
 	98:0.01492,

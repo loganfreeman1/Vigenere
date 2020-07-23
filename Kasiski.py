@@ -68,19 +68,17 @@ def kasiski(string,minSize=3, maxSize=6):
 					totalFactors+=1
 
 	#Now, do an irregularity analysis, to find the likely key length(s)
-	print(frequencies)
 	differences = {}
 	for i in range(minSize, maxSize+1):
 		if i in frequencies:
 			expected = (factorFrequency[i]*totalFactors)
 			actual = (frequencies[i])
 			differences[i]=actual-expected
-			print("length "+str(i))
-			print("difference "+str(actual-expected))
 
 	possibleKeyLengths = []
-	sortedDict = sorted(differences, key=differences.get, reverse=True)
-	return sortedDict[:3]
+	sortedDict = sorted(differences, key=differences.get, reverse=True)[:3]
+	print("Most likely key length is: "+str(sortedDict[0]))
+	return sortedDict
 
 def csvDict(mydict):
 	with open('dict.csv', 'w') as csv_file:
