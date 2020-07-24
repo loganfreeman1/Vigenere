@@ -77,7 +77,6 @@ def kasiski(string,minSize=3, maxSize=6):
 
 	possibleKeyLengths = []
 	sortedDict = sorted(differences, key=differences.get, reverse=True)[:3]
-	print("Most likely key length is: "+str(sortedDict[0]))
 	return sortedDict
 
 def csvDict(mydict):

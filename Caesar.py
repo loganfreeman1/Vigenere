@@ -25,14 +25,9 @@ def crackCaesar(charList): #Takes charList, all lower-case characters
 
 		shiftSuccess[i] = netDeviation
 
+	print(shiftSuccess)
 	shiftSuccess = sorted(shiftSuccess, key=shiftSuccess.get, reverse=False)
-	crackedMessage = []
-	for c in charList:
-		char = c-shiftSuccess[0]
-		if char<97:
-			char+=26
-		crackedMessage.append(char)
-	return crackedMessage
+	return shiftSuccess[0] #0 for a-keyed
 
 
 alphabetFrequency = {
