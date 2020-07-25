@@ -29,7 +29,6 @@ def frequencyAnalysis(charList): #Takes charList, all lower-case characters
 
 		shiftSuccess[i] = netDeviation
 
-	print(shiftSuccess)
 	shiftSuccess = sorted(shiftSuccess, key=shiftSuccess.get, reverse=False)
 	return shiftSuccess #0 for a-keyed
 

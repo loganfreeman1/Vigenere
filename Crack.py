@@ -16,7 +16,12 @@ def crackVigenere(message):
 	for n in messageNums:
 		messageModified+=str(chr(n))
 
-	keyLength = Kasiski.kasiski(messageModified,3,15)[0] #Most likely key length based on Kasiski Analysis of ciphertext
+	try:
+		keyLength = Kasiski.kasiski(messageModified,3,15)[0] #Most likely key length based on Kasiski Analysis of ciphertext
+	except IndexError:
+		print('Kasiski Analysis failed. Message might be too short, or key might be too short or too long')
+		return None
+
 	print('Guessed key length as: '+str(keyLength))
 
 	frequencyAnalyses = []
@@ -37,12 +42,11 @@ def crackVigenere(message):
 	for perm in perms:
 		key = ''
 		for j in range(keyLength):
-			print(perm[j])
 			key+=str(chr((frequencyAnalyses[j])[perm[j]]+97))
-		print(key)
 		decodedString = str(EncodeDecode.decodeVigenere(messageModified, key))
-		return
-		if(DictionaryCheck.dictCheck(decodedString)>500000):
+		validWords = DictionaryCheck.dictCheck(decodedString)
+		print('Guessed key as: ' + key+ '. There are ' + str(validWords) +' valid words as a part of the decoded message')
+		if(DictionaryCheck.dictCheck(decodedString)>0.28*len(decodedString)): #0.28, approximately
+			print('Number of valid words is greater than 0.28*message length. This key is likely correct!')
 			return decodedString
-		#print(l, end = ' ')
 
